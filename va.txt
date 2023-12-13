@@ -1,0 +1,17 @@
+
+
+//-
+
+// import {createContext, useContext} from 'react';
+//
+// //create context with initial val - true
+// const AuthContext = createContext(true);
+//
+// //export custom hook names 'useAuth'; custom hooks encapsulate logic and make it reusable accross components;
+// //this hook uses the 'useContext' hook to access the current value AuthContext!
+// export const useAuth = () => {
+//     //access current val of 'AuthContext';
+//     return useContext(AuthContext)
+// };
+//
+// //this code exposes the useAuth hook with which we have access to the current value of AuthContext
