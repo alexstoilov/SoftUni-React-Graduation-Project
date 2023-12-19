@@ -1,0 +1,33 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true // Enables linting for JSX syntax
+    }
+  },
+  "plugins": ["react", "jsx-a11y"],
+  "rules": {
+    // "indent": ["error", "tab"],
+    "curly": "error", // Throws an error when control statements aren't enclosed in curly braces,
+    "no-unused-vars": "warn", // Warns when there are variables declared but not used,
+    "jsx-a11y/anchor-is-valid": "warn", // Warns about invalid anchor elements in JSX,
+    "react/react-in-jsx-scope": "off", // Turns off the rule requiring React to be in scope when using JSX
+    "react-hooks/exhaustive-deps": "warn", // Warns when dependencies are missing in useEffect and similar Hooks,
+    // "linebreak-style": ["error", "unix"],
+    // "quotes": ["error", "single"],
+    "semi": ["error", "always"]
+  }
+}
