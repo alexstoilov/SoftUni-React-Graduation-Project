@@ -6,14 +6,20 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "./services/queryClient";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+  //ensure that it's the same queryClient instance;
+  //otherwise, you'll get a new instance of queryClient every time you render your app and lose all of your cached data.
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </QueryClientProvider>
 );
 
 // <React.StrictMode>

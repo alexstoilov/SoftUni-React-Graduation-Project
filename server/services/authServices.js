@@ -43,7 +43,7 @@ async function loginUser(body) {
 function createSession(user) {
   const userId = user._id.toString();
   const token = jwt.sign({ userId }, SECRET, { expiresIn: "1h" });
-  return token;
+  return { user, token };
 }
 
 async function editUser(body, userId) {

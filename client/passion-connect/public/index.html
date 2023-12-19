@@ -24,8 +24,18 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script
+      src="https://cdn.tiny.cloud/1/vtwqe0f83pt5o64hevv2yb2duoqyk6pfuzt8wd1jst5r63d6/tinymce/6/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+    <script>
+      tinymce.init({
+        selector: "#mytextarea",
+      });
+    </script>
     <title>React App</title>
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

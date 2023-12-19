@@ -1,23 +1,65 @@
 // Register.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Register.css";
+import { useTopics } from "../hooks/useTopics";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/authSlice.js";
+import { postRegisterForm } from "../services/apiCalls";
+import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { data: topics, isLoading, isError } = useTopics();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
+    description: "",
+    topics: [],
     password: "",
     rePassword: "",
   });
+
+  const [topicsOptions, setTopicsOptions] = useState([]);
+
+  useEffect(() => {
+    if (Array.isArray(topics)) {
+      const options = topics.map((topic) => ({
+        value: topic.id,
+        label: topic.name,
+      }));
+      setTopicsOptions(options);
+    }
+  }, [topics]);
+
+  const handleTopicsChange = (selectedOptions) => {
+    setFormData({
+      ...formData,
+      topics: selectedOptions
+        ? selectedOptions.map((option) => option.value)
+        : [],
+    });
+  };
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Add your registration logic here
-    console.log(formData);
+    if (formData.password !== formData.rePassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    try {
+      const response = await postRegisterForm(formData);
+      dispatch(authActions.login(response.data.token));
+      navigate("/");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
 
   return (
@@ -62,6 +104,15 @@ const Register = () => {
           value={formData.rePassword}
           onChange={handleChange}
           required
+        />
+
+        <label htmlFor="topics">Topics:</label>
+        <Select
+          id="topics"
+          name="topics"
+          options={topicsOptions}
+          isMulti
+          onChange={handleTopicsChange}
         />
 
         <button type="submit">Register</button>

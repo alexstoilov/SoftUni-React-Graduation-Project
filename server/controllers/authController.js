@@ -9,14 +9,14 @@ const authController = require("express").Router();
 authController.post("/register", async (req, res) => {
   try {
     const formData = req.body;
-    const jwt = await registerUser(formData);
-    return res.status(201).json({ jwt });
+    const session = await registerUser(formData);
+    return res.status(201).json(session);
   } catch (err) {
     console.error(
-      "🚀 ~ file: authController.js:23 ~ authController.post ~ post:"
+      "🚀 ~ file: authController.js ~ authController.post ~ post:",
+      err
     );
-    console.error("error is: ", err);
-    if (err == "Error: A user with this email or username already exists.") {
+    if (err.message === "A user with this email or username already exists.") {
       return res
         .status(409)
         .json({ error: "A user with this email or username already exists." });
@@ -32,14 +32,14 @@ authController.post("/register", async (req, res) => {
 authController.post("/login", async (req, res) => {
   try {
     const formData = req.body;
-    const jwt = await loginUser(formData);
-    return res.status(200).json({ jwt });
+    const session = await loginUser(formData);
+    return res.status(200).json(session);
   } catch (err) {
     console.error(
-      "🚀 ~ file: authController.js:42 ~ authController.post ~ authController:"
+      "🚀 ~ file: authController.js ~ authController.post ~ error:",
+      err
     );
-    console.error("error is: ", err);
-    if (err == "Error: Email or password do not match.") {
+    if (err.message === "Email or password do not match.") {
       return res.status(401).json({ error: "Invalid credentials" });
     } else {
       return res
@@ -54,17 +54,17 @@ authController.post("/:id/edit", async (req, res) => {
   try {
     const formData = req.body;
     const userId = req.params.id;
-    const jwt = await editUser(formData, userId);
-    return res.status(200).json({ jwt });
+    const session = await editUser(formData, userId);
+    return res.status(200).json(session);
   } catch (err) {
     console.error(
-      "🚀 ~ file: authController.js:42 ~ authController.post ~ authController:"
+      "🚀 ~ file: authController.js ~ authController.post ~ error:",
+      err
     );
-    console.error("error is: ", err);
-    if (err == "Error: Email or password do not match.") {
+    if (err.message === "Email or password do not match.") {
       return res.status(401).json({ error: "Invalid credentials" });
     } else if (
-      err == "Error: A user with this username or email already exists."
+      err.message === "A user with this username or email already exists."
     ) {
       return res
         .status(409)

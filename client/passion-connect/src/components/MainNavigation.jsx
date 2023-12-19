@@ -35,6 +35,11 @@ const LoggedInHeader = () => {
           Logout
         </Link>
       </li>
+      <li>
+        <Link to="/articles/create" className="nav-link">
+          Logout
+        </Link>
+      </li>
     </ul>
   );
 };
