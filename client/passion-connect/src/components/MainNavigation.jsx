@@ -1,28 +1,39 @@
-// MainNavigation.js
-import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import "./MainNavigation.css";
 
 const MainNavigation = () => {
-  //get data from redux store;
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  return <nav>{isAuth ? <LoggedInHeader /> : <GuestHeader />}</nav>;
+
+  return (
+    <nav className="main-navigation">
+      {isAuth ? <LoggedInHeader /> : <GuestHeader />}
+    </nav>
+  );
 };
 
 const LoggedInHeader = () => {
   return (
-    <ul>
+    <ul className="nav-list">
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" className="nav-link">
+          Home
+        </Link>
       </li>
       <li>
-        <Link to="/profile">Profile</Link>
+        <Link to="/auth/profile" className="nav-link">
+          Profile
+        </Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/about" className="nav-link">
+          About
+        </Link>
       </li>
       <li>
-        <Link to="/logout">Logout</Link>
+        <Link to="/auth/logout" className="nav-link">
+          Logout
+        </Link>
       </li>
     </ul>
   );
@@ -30,18 +41,26 @@ const LoggedInHeader = () => {
 
 const GuestHeader = () => {
   return (
-    <ul>
+    <ul className="nav-list">
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" className="nav-link">
+          Home
+        </Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to="/auth/login" className="nav-link">
+          Login
+        </Link>
       </li>
       <li>
-        <Link to="/register">Register</Link>
+        <Link to="/auth/register" className="nav-link">
+          Register
+        </Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/about" className="nav-link">
+          About
+        </Link>
       </li>
     </ul>
   );

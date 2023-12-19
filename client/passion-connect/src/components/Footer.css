@@ -1,0 +1,17 @@
+.footer {
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
